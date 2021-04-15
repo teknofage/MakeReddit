@@ -17,7 +17,7 @@ app.use(expressValidator());
 
 // Set db
 require('./data/reddit-db');
-require('./controllers/posts.js')(app);
+require('./controllers/post.js')(app);
 
 
 const dotenv = require('dotenv/config');
@@ -44,8 +44,8 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-app.get('/posts/new', (req, res) => {
-  res.render('posts-new')
+app.get('/post/new', (req, res) => {
+  res.render('post-new')
 })
 
 app.listen(port, () => {
