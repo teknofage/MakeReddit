@@ -1,5 +1,3 @@
-global.__basedir = __dirname;
-
 // Require Libraries
 const express = require('express')
 const exphbs = require('express-handlebars');
