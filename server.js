@@ -15,8 +15,6 @@ app.use(expressValidator());
 
 // Set db
 require('./data/reddit-db');
-require('./controllers/post.js')(app);
-
 
 const dotenv = require('dotenv/config');
 const path = require('path'); 
@@ -35,6 +33,7 @@ app.set('view engine', 'handlebars')
 // view engine setup
 app.use(express.static('public'));
 
+
 app.use(cors());
 
 // ROUTES
@@ -45,6 +44,8 @@ app.get('/', (req, res) => {
 app.get('/post/new', (req, res) => {
   res.render('post-new')
 })
+
+require('./controllers/post.js')(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
