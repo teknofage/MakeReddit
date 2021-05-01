@@ -1,6 +1,7 @@
 /* Mongoose Connection */
 const mongoose = require("mongoose");
 assert = require("assert");
+require("dotenv").config()
 
 const url = "mongodb://localhost/reddit-db";
 mongoose.Promise = global.Promise;
