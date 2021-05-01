@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -17,11 +17,11 @@ const UserSchema = new Schema({
 // Must use function here! ES6 => functions do not bind this!
 UserSchema.pre("save", function(next) {
   // SET createdAt AND updatedAt
-  const now = new Date();
-  this.updatedAt = now;
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
+//   const now = new Date();
+//   this.updatedAt = now;
+//   if (!this.createdAt) {
+//     this.createdAt = now;
+//   }
 
   // ENCRYPT PASSWORD
   const user = this;
