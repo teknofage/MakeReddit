@@ -1,4 +1,7 @@
 const express = require('express');
+const Handlebars = require('handlebars')
+const expressHandlebars = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 // App Setup
@@ -19,11 +22,13 @@ app.use(expressValidator());
 
 app.use(express.static('public'));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+app.engine('handlebars', expressHandlebars({
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
+}));app.set('view engine', 'handlebars');
 
 const dotenv = require('dotenv/config');
 require('./controllers/posts.js')(app);
+require('./controllers/auth.js')(app);
 
 app.listen(3000, () => {
   console.log(`Example app listening.`)

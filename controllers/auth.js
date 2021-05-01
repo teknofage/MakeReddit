@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 module.exports = app => {
     // SIGN UP FORM
@@ -54,7 +54,9 @@ module.exports = app => {
         // Create User and JWT
         const user = new User(req.body);
     
-        user.save().then((user) => {
+        user
+            .save()
+            .then((user) => {
             var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
             res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
             res.redirect('/');

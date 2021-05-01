@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -10,7 +10,9 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
-});
+},
+    {timestamps: {createdAt: 'created_at'}}
+);
 
 // Must use function here! ES6 => functions do not bind this!
 UserSchema.pre("save", function(next) {
