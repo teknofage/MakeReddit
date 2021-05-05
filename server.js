@@ -27,12 +27,25 @@ app.use(cookieParser()); // Add this after you initialize express.
 
 // Add after body parser initialization!
 app.use(expressValidator());
-
 app.use(express.static('public'));
 
 app.engine('handlebars', expressHandlebars({
   handlebars: allowInsecurePrototypeAccess(Handlebars)
 }));app.set('view engine', 'handlebars');
+
+var checkAuth = (req, res, next) => {
+  console.log("Checking authentication");
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+    req.user = null;
+  } else {
+    var token = req.cookies.nToken;
+    var decodedToken = jwt.decode(token, { complete: true }) || {};
+    req.user = decodedToken.payload;
+  }
+
+  next();
+};
+app.use(checkAuth);
 
 require('./controllers/posts.js')(app);
 require('./controllers/auth.js')(app);
