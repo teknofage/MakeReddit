@@ -1,4 +1,4 @@
-var Post = require("../models/post");
+var Post = require("../models/posts");
 var Comment = require("../models/comment");
 var User = require("../models/user");
 
