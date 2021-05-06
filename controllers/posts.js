@@ -5,12 +5,18 @@ const bcrypt = require("bcryptjs");
 
 module.exports = (app) => {
 
+
+    app.get('/posts/new', (req, res) => {
+        var currentUser = req.user;
+        console.log(currentUser)
+        return res.render("posts-new", { currentUser });
+    });
+
     app.get("/token-route", (req, res) => {
         return res.json(req.user)
     })
-
     // CREATE
-    app.post("/post/new", (req, res) => {
+    app.post("/posts/new", (req, res) => {
         if (req.user) {
             var post = new Post(req.body);
             post.author = req.user._id;
@@ -37,17 +43,17 @@ module.exports = (app) => {
         }
     });
     
-    app.get('/post/new', (req, res) => {
-        const currentUser = req.user;
-        return res.render(`posts-new`, { currentUser });
-    });
   
     // SHOW
     app.get("/posts/:id", function(req, res) {
         var currentUser = req.user;
+        console.log(currentUser, "hello Omar")
         // LOOK UP THE POST
-        Post.findById(req.params.id).populate('comments').lean()
+        Post.findById(req.params.id)
+            .populate("comments").lean()
+            // .populate('author').lean()
             .then(post => {
+                console.log(post, "hello Omar's twin")
                 res.render("posts-show", { post, currentUser });
         })
         .catch(err => {
@@ -61,7 +67,7 @@ module.exports = (app) => {
         Post.find({}).populate('author')
         .then(posts => {
             res.render('posts-index', { posts, currentUser });
-            
+            console.log(posts)
         }).catch(err => {
             console.log(err.message);
         })
@@ -85,7 +91,7 @@ module.exports = (app) => {
         User.findOne({username:req.params.username}).populate("posts")
         .then(user => {
             const posts = user.posts;
-            return res.render("posts-index", {currentUser, posts})
+            return res.render("posts-index", { posts, currentUser })
         })
         .catch(err => {
             console.log(err);

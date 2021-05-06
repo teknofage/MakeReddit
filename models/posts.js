@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const Populate = require("../utils/autopopulate");
 
 const PostSchema = new Schema({
-  _id: { type: String, required: true },
   title: { type: String, required: true },
   url: { type: String, required: true },
   summary: { type: String, required: true }
