@@ -18,6 +18,7 @@ module.exports = function(app) {
                 ]);
             })
             .then(([post, user]) => {
+                console.log(req.params.postId)
                 post.comments.unshift(comment);
                 return Promise.all([
                     post.save()

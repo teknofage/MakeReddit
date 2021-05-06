@@ -42,13 +42,13 @@ var checkAuth = (req, res, next) => {
     var decodedToken = jwt.decode(token, { complete: true }) || {};
     req.user = decodedToken.payload;
   }
-
   next();
 };
 app.use(checkAuth);
 
 require('./controllers/posts.js')(app);
 require('./controllers/auth.js')(app);
+require('./controllers/comments.js')(app);
 
 app.listen(3000, () => {
   console.log(`Example app listening.`)
