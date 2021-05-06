@@ -1,6 +1,6 @@
+const User = require('../models/user');
 const Post = require('../models/posts');
 const Comment = require('../models/comment');
-const User = require('../models/user');
 const bcrypt = require("bcryptjs");
 
 module.exports = (app) => {
@@ -15,6 +15,7 @@ module.exports = (app) => {
     app.get("/token-route", (req, res) => {
         return res.json(req.user)
     })
+
     // CREATE
     app.post("/posts/new", (req, res) => {
         if (req.user) {
@@ -33,7 +34,7 @@ module.exports = (app) => {
                     user.posts.unshift(post);
                     user.save();
                     // REDIRECT TO THE NEW POST
-                    res.redirect(`/posts/${postId}`);
+                    res.redirect(`/posts/${post._id}`);
                 })
                 .catch(err => {
                     console.log(err.message);
