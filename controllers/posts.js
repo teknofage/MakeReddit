@@ -1,20 +1,16 @@
 const User = require('../models/user');
 const Post = require('../models/posts');
-const Comment = require('../models/comment');
-const bcrypt = require("bcryptjs");
+// const Comment = require('../models/comment');
+// const bcrypt = require("bcryptjs");
 
 module.exports = (app) => {
 
-
+    // NEW POST
     app.get('/posts/new', (req, res) => {
         var currentUser = req.user;
-        console.log(currentUser)
         return res.render("posts-new", { currentUser });
     });
 
-    app.get("/token-route", (req, res) => {
-        return res.json(req.user)
-    })
 
     // CREATE
     app.post("/posts/new", (req, res) => {
@@ -48,14 +44,13 @@ module.exports = (app) => {
     // SHOW
     app.get("/posts/:id", function(req, res) {
         var currentUser = req.user;
-        console.log(currentUser)
         // LOOK UP THE POST
         Post.findById(req.params.id)
             .populate("comments").lean()
             // .populate('author').lean()
             .then(post => {
                 console.log(post)
-                res.render("posts-show", { post });
+                res.render("posts-show", { post, currentUser });
         })
         .catch(err => {
             console.log(err.message);
@@ -67,7 +62,7 @@ module.exports = (app) => {
         var currentUser = req.user;
         Post.find({}).populate('author')
         .then(posts => {
-            res.render('posts-index', { posts });
+            res.render('posts-index', { posts, currentUser });
             console.log(posts)
         }).catch(err => {
             console.log(err.message);
@@ -79,7 +74,7 @@ module.exports = (app) => {
         var currentUser = req.user;
         Post.find({ subreddit: req.params.subreddit }).lean()
         .then(posts => {
-        res.render("posts-index", { posts });
+        res.render("posts-index", { posts, currentUser });
         })
         .catch(err => {
         console.log(err);
