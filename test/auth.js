@@ -40,7 +40,7 @@ describe("User", function() {
         .send({ username: "testone", password: "password" })
         .end(function(err, res) {
             res.should.have.status(200);
-            agent.should.have("nToken");
+            agent.should.have.cookie("nToken");
             done();
         });
     });
