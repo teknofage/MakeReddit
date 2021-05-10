@@ -48,14 +48,14 @@ module.exports = (app) => {
     // SHOW
     app.get("/posts/:id", function(req, res) {
         var currentUser = req.user;
-        console.log(currentUser, "hello Omar")
+        console.log(currentUser)
         // LOOK UP THE POST
         Post.findById(req.params.id)
             .populate("comments").lean()
             // .populate('author').lean()
             .then(post => {
-                console.log(post, "hello Omar's twin")
-                res.render("posts-show", { post, currentUser });
+                console.log(post)
+                res.render("posts-show", { post });
         })
         .catch(err => {
             console.log(err.message);
@@ -67,7 +67,7 @@ module.exports = (app) => {
         var currentUser = req.user;
         Post.find({}).populate('author')
         .then(posts => {
-            res.render('posts-index', { posts, currentUser });
+            res.render('posts-index', { posts });
             console.log(posts)
         }).catch(err => {
             console.log(err.message);
@@ -79,7 +79,7 @@ module.exports = (app) => {
         var currentUser = req.user;
         Post.find({ subreddit: req.params.subreddit }).lean()
         .then(posts => {
-        res.render("posts-index", { posts, currentUser });
+        res.render("posts-index", { posts });
         })
         .catch(err => {
         console.log(err);
@@ -92,7 +92,7 @@ module.exports = (app) => {
         User.findOne({username:req.params.username}).populate("posts")
         .then(user => {
             const posts = user.posts;
-            return res.render("posts-index", { posts, currentUser })
+            return res.render("posts-index", { posts })
         })
         .catch(err => {
             console.log(err);
