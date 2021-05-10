@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const Post = require('../models/posts');
 // const Comment = require('../models/comment');
-// const bcrypt = require("bcryptjs");
+
 
 module.exports = (app) => {
 
@@ -42,25 +42,23 @@ module.exports = (app) => {
     
   
     // SHOW
-    app.get("/posts/:id", function(req, res) {
+    app.get("/posts/:id", function (req, res) {
         var currentUser = req.user;
         // LOOK UP THE POST
-        Post.findById(req.params.id)
-            .populate("comments").lean()
-            // .populate('author').lean()
+
+        Post.findById(req.params.id).lean().populate('comments').populate('author')
             .then(post => {
-                console.log(post)
-                res.render("posts-show", { post, currentUser });
-        })
-        .catch(err => {
-            console.log(err.message);
-        });
+                res.render("posts-show", { post, currentUser });  
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
     });
 
 // INDEX
     app.get('/', (req, res) => {
         var currentUser = req.user;
-        Post.find({}).populate('author')
+        Post.find({}).lean().populate('author')
         .then(posts => {
             res.render('posts-index', { posts, currentUser });
             console.log(posts)
@@ -72,7 +70,7 @@ module.exports = (app) => {
       // SUBREDDIT
     app.get("/n/:subreddit", function(req, res) {
         var currentUser = req.user;
-        Post.find({ subreddit: req.params.subreddit }).lean()
+        Post.find({ subreddit: req.params.subreddit }).lean().populate('author')
         .then(posts => {
         res.render("posts-index", { posts, currentUser });
         })
