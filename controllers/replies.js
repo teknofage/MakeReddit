@@ -21,6 +21,7 @@ module.exports = app => {
 
 // CREATE REPLY
 app.post("/videos/:videoId/comments/:commentId/replies", (req, res) => {
+  if (req.user) {
     // TURN REPLY INTO A COMMENT OBJECT
     const reply = new Comment(req.body);
     reply.author = req.user._id
@@ -47,5 +48,8 @@ app.post("/videos/:videoId/comments/:commentId/replies", (req, res) => {
             // SAVE THE CHANGE TO THE PARENT DOCUMENT
             return video.save();
         })
+      } else {
+        return res.status(401); // UNAUTHORIZED
+    }
 });
 };

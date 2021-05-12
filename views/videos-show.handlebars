@@ -3,6 +3,25 @@
     <a href="{{video.url}}" class="lead">{{video.title}}</a>
     <a href="/users/{{video.author.username}}"><p>{{video.author.username}}</p></a>
     <p>{{video.summary}}</p>
+    <form class="yacht-vote-up" data-id="{{this._id}}">
+                        <button type="submit">Yacht Vote Up</button>
+                    </form>
+                    <p>                 
+                    {{this.voteScoreYacht}}
+                    </p>
+                    <form class="yacht-vote-down" data-id="{{this._id}}">
+                        <button type="submit">Yacht Vote Down</button>
+                    </form>
+                
+                    <form class="rocker-vote-up" data-id="{{this._id}}">
+                        <button type="submit">Rocker Vote Up</button>
+                    </form>
+                    <p>                 
+                    {{this.voteScoreRocker}}
+                    </p>
+                    <form class="rocker-vote-down" data-id="{{this._id}}">
+                        <button type="submit">Rocker Vote Down</button>
+                    </form>
     <form action="/videos/{{video._id}}/comments" method="post">
     {{#if currentUser}}
     <textarea class='form-control' name="content" placeholder="Comment"></textarea>
