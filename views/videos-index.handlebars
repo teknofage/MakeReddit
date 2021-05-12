@@ -12,14 +12,23 @@
                     <div class="text-right">
                         <a href="/n/{{this.genre}}">{{this.genre}}</a>
                     </div>
-                    <form class="vote-up" data-id="{{this._id}}">
-                        <button type="submit">Vote Up</button>
+                    <form class="yacht-vote-up" data-id="{{this._id}}">
+                        <button type="submit">Yacht Vote Up</button>
                     </form>
                     <p>                 
-                {{this.voteScore}}
+                {{this.voteScoreYacht}}
                     </p>
-                    <form class="vote-down" data-id="{{this._id}}">
-                        <button type="submit">Vote Down</button>
+                    <form class="yacht-vote-down" data-id="{{this._id}}">
+                        <button type="submit">Yacht Vote Down</button>
+                    </form>
+                    <form class="rocker-vote-up" data-id="{{this._id}}">
+                        <button type="submit">Rocker Vote Up</button>
+                    </form>
+                    <p>                 
+                {{this.voteScoreRocker}}
+                    </p>
+                    <form class="rocker-vote-down" data-id="{{this._id}}">
+                        <button type="submit">Rocker Vote Down</button>
                     </form>
                 </li>
             {{/each}}

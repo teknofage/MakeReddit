@@ -49,6 +49,8 @@ app.use(checkAuth);
 require('./controllers/videos.js')(app);
 require('./controllers/auth.js')(app);
 require('./controllers/comments.js')(app);
+require('./controllers/replies.js')(app);
+
 
 const server = app.listen(3000, () => {
   console.log(`Example app listening.`)

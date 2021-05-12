@@ -16,9 +16,13 @@ module.exports = (app) => {
         if (req.user) {
             var video = new Video(req.body);
             video.author = req.user._id;
-            video.upVotes = [];
-            video.downVotes = [];
-            video.voteScore = 0; 
+            video.upVotesYacht = [];
+            video.downVotesYacht = [];
+            video.voteScoreYacht = 0; 
+            
+            video.upVotesRocker = [];
+            video.downVotesRocker = [];
+            video.voteScoreRocker = 0; 
 
             video
                 .save()
@@ -90,22 +94,44 @@ module.exports = (app) => {
     
     })
 
-    // UP VOTE videos
-    app.put("/videos/:id/vote-up", function(req, res) {
+    // UP YACHT VOTE videos
+    app.put("/videos/:id/yacht-vote-up", function(req, res) {
         Video.findById(req.params.id).exec(function(err, video) {
-          video.upVotes.push(req.user._id);
-          video.voteScore = video.voteScore + 1;
+          video.upVotesYacht.push(req.user._id);
+          video.voteScoreYacht = video.voteScoreYacht + 1;
           video.save();
       
           res.status(200);
         });
       });
       
-    //   DOWN VOTE videos
-      app.put("/videos/:id/vote-down", function(req, res) {
+    //   DOWN YACHT VOTE videos
+      app.put("/videos/:id/yacht-vote-down", function(req, res) {
         Video.findById(req.params.id).exec(function(err, video) {
-          video.downVotes.push(req.user._id);
-          video.voteScore = video.voteScore - 1;
+          video.downVotesYacht.push(req.user._id);
+          video.voteScoreYacht = video.voteScoreYacht - 1;
+          video.save();
+      
+          res.status(200);
+        });
+      });
+
+          // UP ROCKER VOTE videos
+    app.put("/videos/:id/rocker-vote-up", function(req, res) {
+        Video.findById(req.params.id).exec(function(err, video) {
+          video.upVotesRocker.push(req.user._id);
+          video.voteScoreRocker = video.voteScoreRocker + 1;
+          video.save();
+      
+          res.status(200);
+        });
+      });
+      
+    //   DOWN ROCKER VOTE videos
+      app.put("/videos/:id/rocker-vote-down", function(req, res) {
+        Video.findById(req.params.id).exec(function(err, video) {
+          video.downVotesRocker.push(req.user._id);
+          video.voteScoreRocker = video.voteScoreRocker - 1;
           video.save();
       
           res.status(200);
