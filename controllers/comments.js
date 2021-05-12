@@ -1,9 +1,9 @@
 const Comment = require('../models/comment');
-const Post = require('../models/posts');
+const Video = require('../models/videos');
 
 module.exports = function(app) {
     // CREATE Comment
-    app.post("/posts/:postId/comments", function(req, res) {
+    app.post("/videos/:videoId/comments", function(req, res) {
         // INSTANTIATE INSTANCE OF MODEL
         const comment = new Comment(req.body);
         comment.author = req.user._id;
@@ -12,17 +12,17 @@ module.exports = function(app) {
             .save()
             .then(comment => {
                 return Promise.all([
-                    Post.findById(req.params.postId)
+                    Video.findById(req.params.videoId)
                 ]);
             })
-            .then(([post, user]) => {
-                post.comments.unshift(comment);
+            .then(([video, user]) => {
+                video.comments.unshift(comment);
                 return Promise.all([
-                    post.save()
+                    video.save()
                 ]);
         })
-            .then(post => {
-                res.redirect(`/posts/${req.params.postId}`);
+            .then(video => {
+                res.redirect(`/videos/${req.params.videoId}`);
         })
             .catch(err => {
                 console.log(err);

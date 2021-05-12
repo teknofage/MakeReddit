@@ -13,7 +13,7 @@
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand text-danger" href="/">Reddit</a>
+        <a class="navbar-brand text-danger" href="/">YachtRocker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     {{#if currentUser}}
-                        <a href="/posts/new" class="btn navbar-btn btn-success">New Post</a>
+                        <a href="/videos/new" class="btn navbar-btn btn-success">New Video</a>
                     {{/if}}
                 </li>
             
@@ -30,6 +30,10 @@
             {{> navbar}}
         </div>
     </nav>
+    <div class="container">
+      <p>YachtRocker is an API which allows users to post links to music videos, which the community can review, comment on, and ascribe both "Yacht" and "Rocker" ratings.</p>
+      <p>The "Yacht" rating is determined by how much the video and music reminds one of yachts, and the "Rocker" rating is determined by how rock & roll the song makes you feel.</p>
+    </div>
     <div class="container">
       {{{body}}}
     </div>

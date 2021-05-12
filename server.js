@@ -46,7 +46,7 @@ var checkAuth = (req, res, next) => {
 };
 app.use(checkAuth);
 
-require('./controllers/posts.js')(app);
+require('./controllers/videos.js')(app);
 require('./controllers/auth.js')(app);
 require('./controllers/comments.js')(app);
 

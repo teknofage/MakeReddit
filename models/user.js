@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   password: { type: String, select: false },
   email: {type: String, select: false },
   username: { type: String, required: true },
-  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+  videos: [{ type: Schema.Types.ObjectId, ref: "Video" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
 },
     {timestamps: {createdAt: 'created_at'}}

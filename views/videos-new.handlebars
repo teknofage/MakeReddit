@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <form action="/videos/new" method="post">
+      <legend>New Video</legend>
+      <div class="form-group">
+        <label for="video-title">Title</label>
+        <input type="text" name="title" class="form-control" id="video-title" placeholder="Title">
+      </div>
+      <div class="form-group">
+        <label for="video-url">Url</label>
+        <input type="url" name="url" class="form-control" id="video-url" placeholder="https://www.google.com">
+      </div>
+      <div class="form-group">
+        <label for="video-summary">Summary</label>
+        <textarea name="summary" class="form-control" id="video-summary" placeholder="Title"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="video-genre">Genre</label>
+        <input name="genre" type="text" class="form-control" id="video-genre" placeholder="genre">
+      </div>
+      <div class='text-right'>
+        <button type="submit" class="btn btn-primary">Create Video Post</button>
+      </div>
+    </form>
+  </div>
+</div>

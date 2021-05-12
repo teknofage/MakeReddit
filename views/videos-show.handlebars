@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
-    <a href="{{post.url}}" class="lead">{{post.title}}</a>
-    <a href="/users/{{post.author.username}}"><p>{{post.author.username}}</p></a>
-    <p>{{post.summary}}</p>
-    <form action="/posts/{{post._id}}/comments" method="post">
+    <a href="{{video.url}}" class="lead">{{video.title}}</a>
+    <a href="/users/{{video.author.username}}"><p>{{video.author.username}}</p></a>
+    <p>{{video.summary}}</p>
+    <form action="/videos/{{video._id}}/comments" method="post">
     {{#if currentUser}}
     <textarea class='form-control' name="content" placeholder="Comment"></textarea>
       {{/if}}
@@ -13,8 +13,8 @@
       {{/if}}
     </div>
   </form>
-{{#each post.comments}}
-  {{> comment comment=this postId=../post._id}}
+{{#each video.comments}}
+  {{> comment comment=this videoId=../video._id}}
 {{/each}}
   </div>
 </div>

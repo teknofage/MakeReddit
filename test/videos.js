@@ -1,31 +1,31 @@
-// test/posts.js
-const app = require("./../server");
+// test/videos.js
+const app = require("../server");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const expect = chai.expect;
 const agent = chai.request.agent(app);
 
-// Import the Post model from our models folder so we
+// Import the video model from our models folder so we
 // we can use it in our tests.
-const Post = require('../models/posts');
+const Video = require('../models/videos');
 const User = require('../models/user');
 const server = require('../server');
 
 chai.should();
 chai.use(chaiHttp);
 
-describe('Posts', function() {
+describe('Videos', function() {
     const agent = chai.request.agent(server);
-    // Post that we'll use for testing purposes
-    const newPost = {
-        title: 'post title',
+    // video that we'll use for testing purposes
+    const newVideo = {
+        title: 'video title',
         url: 'https://www.google.com',
-        summary: 'post summary',
-        subreddit: 'subreddit'
+        summary: 'video summary',
+        genre: 'genre'
     };
     const user = {
-            username: 'poststest',
-            password: 'testposts'
+            username: 'videostest',
+            password: 'testvideos'
         };
 
     before(function (done) {
@@ -41,24 +41,24 @@ describe('Posts', function() {
         });
     });
 
-    it("should create with valid attributes at POST /posts/new", function (done) {
-        // Checks how many posts there are now
-    Post.estimatedDocumentCount()
+    it("should create with valid attributes at POST /videos/new", function (done) {
+        // Checks how many videos there are now
+    Video.estimatedDocumentCount()
     .then(function (initialDocCount) {
         agent
         .request(app)
-            .post("/posts/new")
-            // This line fakes a form post,
+            .video("/videos/new")
+            // This line fakes a form video,
             // since we're not actually filling out a form
             .set("content-type", "application/x-www-form-urlencoded")
             // Make a request to create another
-            .send(newPost)
+            .send(newVideo)
             .then(function (res) {
-                Post.estimatedDocumentCount()
+                Video.estimatedDocumentCount()
                     .then(function (newDocCount) {
-                        // Check that the database has one more post in it
+                        // Check that the database has one more video in it
                         expect(res).to.have.status(200);
-                        // Check that the database has one more post in it
+                        // Check that the database has one more video in it
                         expect(newDocCount).to.be.equal(initialDocCount + 1)
                         done();
                     })
@@ -77,7 +77,7 @@ describe('Posts', function() {
   });
 
   after(function (done) {
-    Post.findOneAndDelete(newPost)
+    Video.findOneAndDelete(newVideo)
     .then(function (res) {
         agent.close()
   

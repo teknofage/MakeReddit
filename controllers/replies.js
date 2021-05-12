@@ -1,18 +1,18 @@
-var Post = require("../models/posts");
+var Video = require("../models/videos");
 var Comment = require("../models/comment");
 var User = require("../models/user");
 
 module.exports = app => {
   // NEW REPLY
-  app.get("/posts/:postId/comments/:commentId/replies/new", (req, res) => {
-    let post;
-    Post.findById(req.params.postId)
+  app.get("/videos/:videoId/comments/:commentId/replies/new", (req, res) => {
+    let video;
+    Video.findById(req.params.videoId)
       .then(p => {
-        post = p;
+        video = p;
         return Comment.findById(req.params.commentId);
       })
       .then(comment => {
-        res.render("replies-new", { post, comment });
+        res.render("replies-new", { video, comment });
       })
       .catch(err => {
         console.log(err.message);
@@ -20,13 +20,13 @@ module.exports = app => {
   });
 
 // CREATE REPLY
-app.post("/posts/:postId/comments/:commentId/replies", (req, res) => {
+app.post("/videos/:videoId/comments/:commentId/replies", (req, res) => {
     // TURN REPLY INTO A COMMENT OBJECT
     const reply = new Comment(req.body);
     reply.author = req.user._id
-    // LOOKUP THE PARENT POST
-    Post.findById(req.params.postId)
-        .then(post => {
+    // LOOKUP THE PARENT video
+    Video.findById(req.params.videoId)
+        .then(video => {
             // FIND THE CHILD COMMENT
             Promise.all([
                 reply.save(),
@@ -41,11 +41,11 @@ app.post("/posts/:postId/comments/:commentId/replies", (req, res) => {
                     ]);
                 })
                 .then(() => {
-                    res.redirect(`/posts/${req.params.postId}`);
+                    res.redirect(`/videos/${req.params.videoId}`);
                 })
                 .catch(console.error);
             // SAVE THE CHANGE TO THE PARENT DOCUMENT
-            return post.save();
+            return video.save();
         })
 });
 };
