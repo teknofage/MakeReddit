@@ -4,9 +4,9 @@
     <a href="/users/{{video.author.username}}"><p>{{video.author.username}}</p></a>
     <p>{{video.summary}}</p>
     {{#if currentUser}}
-  <form class="update-video" data-id="{{this._id}}">
-      <button type="submit">Update Video Post</button>
-      </form>
+  {{!-- <form class="update-video" data-id="{{this._id}}"> --}}
+      <a href="/videos/{{video._id}}/edit"><button>Update Video Post</button></a>
+      {{!-- </form> --}}
       <form class="delete-video" data-id="{{this._id}}">
       <button type="submit">Delete Video Post</button>
       </form>

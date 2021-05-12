@@ -68,23 +68,48 @@ module.exports = (app) => {
             })
     })
 
-    // UPDATE
-    // app.post('videos/:id/edit', (req, res, next) = > {
-    //     var currentUser = req.user;
-            // Video.updateOne()
-    // })
-
-
-    // DELETE
-    app.post('videos/:id/delete', (req, res, next) => {
-        var currentUser = req.user;
-        Video.deleteOne({})
-        .then(videos => {
-            res.render('/')  
-        }).catch(err => {
-            console.log(err.message);
-        })
+    // GET UPDATE VIDEO
+    app.get('videos/:id/edit', (req, res) => {
+        if (req.user == video.author) {
+            return res.render("videos-new");
+        } else {
+            console.log("Cannot edit posts that aren't yours.")
+            }
     })
+
+    // UPDATE
+    app.put('videos/:id/edit', (req, res) => {
+        if (req.user == video.author) {
+            quotesCollection.findOneAndUpdate(
+                { id: req.params.id },
+                {
+                $set: {
+                    title: req.body.title,
+                    author: req.body.author
+                }
+                }
+            )
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => console.error(error))
+        } else {
+        console.log("Cannot edit posts that aren't yours.")
+        }
+    })
+
+
+
+    // // DELETE
+    // app.post('videos/:id/delete', (req, res) => {
+    //     var currentUser = req.user;
+    //     Video.deleteOne({req.params.id })
+    //     .then(videos => {
+    //         res.render('/')  
+    //     }).catch(err => {
+    //         console.log(err.message);
+    //     })
+    // })
 
     // GENRE
     app.get("/n/:genre", function (req, res) {
