@@ -60,9 +60,27 @@ module.exports = (app) => {
     app.get('/', (req, res) => {
         var currentUser = req.user;
         Video.find({}).lean().populate('author')
+            .then(videos => {
+                res.render('videos-index', { videos, currentUser });
+                console.log(videos)
+            }).catch(err => {
+                console.log(err.message);
+            })
+    })
+
+    // UPDATE
+    // app.post('videos/:id/edit', (req, res, next) = > {
+    //     var currentUser = req.user;
+            // Video.updateOne()
+    // })
+
+
+    // DELETE
+    app.post('videos/:id/delete', (req, res, next) => {
+        var currentUser = req.user;
+        Video.deleteOne({})
         .then(videos => {
-            res.render('videos-index', { videos, currentUser });
-            console.log(videos)
+            res.render('/')  
         }).catch(err => {
             console.log(err.message);
         })
