@@ -8,11 +8,11 @@ const VideoSchema = new Schema({
   url: { type: String, required: true },
   summary: { type: String, required: true },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  upVotesYacht : [{ type: Schema.Types.ObjectId, ref: "User"}],
-  downVotesYacht : [{ type: Schema.Types.ObjectId, ref: "User"}],
+  upVotesYacht : [{ type: Number}],
+  downVotesYacht : [{ type: Number}],
   voteScoreYacht : {type: Number},
-  upVotesRocker : [{ type: Schema.Types.ObjectId, ref: "User"}],
-  downVotesRocker : [{ type: Schema.Types.ObjectId, ref: "User"}],
+  upVotesRocker : [{ type: Number}],
+  downVotesRocker : [{ type: Number}],
   voteScoreRocker : {type: Number},
 }, {timestamps: {createdAt: 'created_at'}
     });

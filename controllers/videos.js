@@ -69,16 +69,29 @@ module.exports = (app) => {
     })
 
     // GET UPDATE VIDEO
-    app.get('videos/:id/edit', (req, res) => {
-        if (req.user == video.author) {
-            return res.render("videos-new");
+    app.get('/videos/:id/edit', (req, res) => {
+        console.log(req.user)
+        if (req.user) {                            
+            Video.findById(req.params.id).populate('comments').lean()
+            .then(video => {
+                console.log("User: ", req.user, "Video: ", video)
+
+                console.log(req.user.username.toString() == video.author.username)
+                if (req.user.username == video.author.username) {
+                    return res.render("videos-edit", { video: video});
+                } else {
+                    console.log("Cannot edit posts that aren't yours.")
+                    }
+            }).catch(err => {
+                console.log(err.message);
+            })  
         } else {
-            console.log("Cannot edit posts that aren't yours.")
-            }
+            return res.render("login")
+        }  
     })
 
     // UPDATE
-    app.put('videos/:id/edit', (req, res) => {
+    app.put('/videos/:id/edit', (req, res) => {
         if (req.user == video.author) {
             quotesCollection.findOneAndUpdate(
                 { id: req.params.id },
@@ -101,7 +114,7 @@ module.exports = (app) => {
 
 
     // // DELETE
-    // app.post('videos/:id/delete', (req, res) => {
+    // app.post('/videos/:id/delete', (req, res) => {
     //     var currentUser = req.user;
     //     Video.deleteOne({req.params.id })
     //     .then(videos => {

@@ -1,18 +1,19 @@
+{{#if video}}
 <div class="row">
   <div class="col-sm-4 col-sm-offset-4">
     <form action="/videos/edit" method="post">
-      <legend>edit Video</legend>
+      <legend>Edit Video Post</legend>
       <div class="form-group">
         <label for="video-title">Title</label>
-        <input type="text" name="title" class="form-control" id="video-title" placeholder="Title">
+        <input type="text" name="title" class="form-control" id="video-title" placeholder="Title" value={{ video.title }}>
       </div>
       <div class="form-group">
         <label for="video-url">Url</label>
-        <input type="url" name="url" class="form-control" id="video-url" placeholder="https://www.google.com">
+        <input type="url" name="url" class="form-control" id="video-url" placeholder="https://www.google.com" value={{ video.url }}>
       </div>
       <div class="form-group">
         <label for="video-summary">Summary</label>
-        <textarea name="summary" class="form-control" id="video-summary" placeholder="Title"></textarea>
+        <textarea name="summary" class="form-control" id="video-summary" placeholder="Summary" value={{ video }}></textarea>
       </div>
       <div class="form-group">
         <label for="video-genre">Genre</label>
@@ -24,3 +25,4 @@
     </form>
   </div>
 </div>
+{{/if}}
