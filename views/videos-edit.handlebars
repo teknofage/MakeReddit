@@ -1,26 +1,27 @@
 {{#if video}}
 <div class="row">
   <div class="col-sm-4 col-sm-offset-4">
-    <form action="/videos/edit" method="post">
+    <form action="/videos/{{ video._id }}/edit" method="post" class="classy">
       <legend>Edit Video Post</legend>
       <div class="form-group">
         <label for="video-title">Title</label>
-        <input type="text" name="title" class="form-control" id="video-title" placeholder="Title" value={{ video.title }}>
+        <p>{{ video.title }}</p>
+        <input type="text" name="title" class="form-control" id="video-title" placeholder="Title" value="{{ video.title }}">
       </div>
       <div class="form-group">
         <label for="video-url">Url</label>
-        <input type="url" name="url" class="form-control" id="video-url" placeholder="https://www.google.com" value={{ video.url }}>
+        <input type="url" name="url" class="form-control" id="video-url" placeholder="https://www.google.com" value="{{ video.url }}">
       </div>
       <div class="form-group">
         <label for="video-summary">Summary</label>
-        <textarea name="summary" class="form-control" id="video-summary" placeholder="Summary" value={{ video }}></textarea>
+        <textarea name="summary" class="form-control" id="video-summary" placeholder="Summary" value="{{ video.summary }}"></textarea>
       </div>
       <div class="form-group">
         <label for="video-genre">Genre</label>
-        <input name="genre" type="text" class="form-control" id="video-genre" placeholder="genre">
+        <input name="genre" type="text" class="form-control" id="video-genre" placeholder="genre" value="{{ video.genre }}">
       </div>
       <div class='text-right'>
-        <button type="submit" class="btn btn-primary">Create Video Post</button>
+        <button type="submit" class="btn btn-primary">Update Video Post</button>
       </div>
     </form>
   </div>

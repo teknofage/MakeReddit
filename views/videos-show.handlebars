@@ -7,9 +7,8 @@
   {{!-- <form class="update-video" data-id="{{this._id}}"> --}}
       <a href="/videos/{{video._id}}/edit"><button>Update Video Post</button></a>
       {{!-- </form> --}}
-      <form class="delete-video" data-id="{{this._id}}">
-      <button type="submit">Delete Video Post</button>
-      </form>
+      <a href="/videos/{{video._id}}/delete"><button>Delete Video Post</button></a>
+
     {{/if}}
     <form class="yacht-vote-up" data-id="{{this._id}}">
       <button type="submit">Yacht Vote Up</button>

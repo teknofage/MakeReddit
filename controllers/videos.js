@@ -70,7 +70,9 @@ module.exports = (app) => {
 
     // GET UPDATE VIDEO
     app.get('/videos/:id/edit', (req, res) => {
+        console.log('/videos/:id/edit')
         console.log(req.user)
+        var currentUser = req.user;
         if (req.user) {                            
             Video.findById(req.params.id).populate('comments').lean()
             .then(video => {
@@ -78,10 +80,10 @@ module.exports = (app) => {
 
                 console.log(req.user.username.toString() == video.author.username)
                 if (req.user.username == video.author.username) {
-                    return res.render("videos-edit", { video: video});
+                    return res.render("videos-edit", { video: video, currentUser });
                 } else {
                     console.log("Cannot edit posts that aren't yours.")
-                    }
+                }
             }).catch(err => {
                 console.log(err.message);
             })  
@@ -91,38 +93,61 @@ module.exports = (app) => {
     })
 
     // UPDATE
-    app.put('/videos/:id/edit', (req, res) => {
-        if (req.user == video.author) {
-            quotesCollection.findOneAndUpdate(
-                { id: req.params.id },
-                {
-                $set: {
-                    title: req.body.title,
-                    author: req.body.author
-                }
-                }
+    app.post('/videos/:id/edit', (req, res) => {
+        console.log("Hi Mitchell")
+        console.log('/videos/:id/edit-post')
+        var currentUser = req.user;
+        
+            Video.findOneAndUpdate(
+                {id:req.params.id}, 
+                {...req.body},
             )
-            .then(result => {
-                console.log(result)
+            .then((video) => {
+                res.redirect(`/videos/${req.params.id}`);  
             })
             .catch(error => console.error(error))
-        } else {
-        console.log("Cannot edit posts that aren't yours.")
-        }
+        
     })
 
 
 
-    // // DELETE
-    // app.post('/videos/:id/delete', (req, res) => {
+    // DELETE
+    app.get('/videos/:id/delete', (req, res) => {
+        if (req.user) {                            
+            Video.findById(req.params.id).populate('comments').lean()
+            .then(video => {
+                console.log("User: ", req.user, "Video: ", video)
+
+                console.log(req.user.username.toString() == video.author.username)
+                if (req.user.username == video.author.username) {
+                    Video
+                    .deleteOne({video: req.params.id })
+                    .then(console.log("Successfully deleted.")    
+                    )
+                    .catch(err => {
+                        console.log(err.message);
+                    })  
+                    return res.render('videos-index')              
+                } else {
+                    console.log("Cannot delete posts that aren't yours.")
+                    }
+            }).catch(err => {
+                console.log(err.message);
+            })  
+        } else {
+            return res.render("login")
+        }
     //     var currentUser = req.user;
-    //     Video.deleteOne({req.params.id })
-    //     .then(videos => {
-    //         res.render('/')  
-    //     }).catch(err => {
+    //     Video
+    //     .deleteOne({video._id: req.params.id })
+    //     .then(console.log("Successfully deleted.");)
+    //     .catch(err => {
     //         console.log(err.message);
     //     })
-    // })
+    // } else {
+    //     console.log("Cannot delete posts that aren't yours.")
+    //     }
+    })
 
     // GENRE
     app.get("/n/:genre", function (req, res) {
