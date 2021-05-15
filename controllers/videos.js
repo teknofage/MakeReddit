@@ -94,7 +94,6 @@ module.exports = (app) => {
 
     // UPDATE
     app.post('/videos/:id/edit', (req, res) => {
-        console.log("Hi Mitchell")
         console.log('/videos/:id/edit-post')
         var currentUser = req.user;
         
