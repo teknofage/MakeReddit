@@ -52,8 +52,9 @@ require('./controllers/comments.js')(app);
 require('./controllers/replies.js')(app);
 
 
-const server = app.listen(3000, () => {
-  console.log(`Example app listening.`)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('YachtRocker listening on port localhost:3000!');
 })
 
-module.exports = server;
+module.exports = PORT;
